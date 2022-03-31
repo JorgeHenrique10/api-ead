@@ -6,18 +6,17 @@ use App\Models\Traits\UuidTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Course extends Model
+class Module extends Model
 {
     use HasFactory, UuidTrait;
 
     public $incrementing = false;
-    protected $table = 'courses';
+    protected $table = 'modules';
     protected $typeKey = 'uuid';
-    protected $fillable = ['name', 'description', 'image'];
+    protected $fillable = ['name'];
 
-    public function modules()
+    public function course()
     {
-        return $this->hasMany(Module::class);
-        // $this->hasMany(Module::class, 'course_id', 'id');
+        return $this->belongsTo(Course::class);
     }
 }
