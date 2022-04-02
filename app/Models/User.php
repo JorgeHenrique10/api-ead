@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Models\Api\Lesson;
+use App\Models\Api\Support;
 use App\Models\Traits\UuidTrait;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -45,4 +47,9 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function supports()
+    {
+        return $this->hasMany(Support::class);
+    }
 }
