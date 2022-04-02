@@ -4,7 +4,7 @@ namespace App\Http\Resources\Api;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class SupportResource extends JsonResource
+class ReplySupportResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -15,13 +15,9 @@ class SupportResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
             'description' => $this->description,
-            'status' => $this->status,
-            'status_label' => $this->statusOptions[$this->status] ?? '',
-            'user' => new UserResource($this->user),
-            'lesson' => new LessonResource($this->lesson),
-            'replies' => ReplySupportResource::collection($this->replies)
+            'support' => new SupportResource($this->whenLoaded('support')),
+            'user' => new UserResource($this->user)
         ];
     }
 }

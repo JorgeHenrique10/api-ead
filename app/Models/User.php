@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Api\Lesson;
+use App\Models\Api\ReplySupport;
 use App\Models\Api\Support;
 use App\Models\Traits\UuidTrait;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -51,5 +52,9 @@ class User extends Authenticatable
     public function supports()
     {
         return $this->hasMany(Support::class);
+    }
+    public function replies()
+    {
+        return $this->hasMany(ReplySupport::class);
     }
 }

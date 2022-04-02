@@ -25,8 +25,8 @@ class SupportRepository
     {
         return $this->entity
             ->where(function ($query) use ($filters) {
-                if (isset($filters['lession_id'])) {
-                    $query->where('lession_id', $filters['lession_id']);
+                if (isset($filters['lesson_id'])) {
+                    $query->where('lesson_id', $filters['lesson_id']);
                 }
                 if (isset($filters['status'])) {
                     $query->where('status', $filters['status']);
