@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\Auth\AuthController;
 use App\Http\Controllers\Api\CourseController;
 use App\Http\Controllers\Api\LessonController;
 use App\Http\Controllers\Api\ModuleController;
@@ -19,19 +20,28 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/courses', [CourseController::class, 'index']);
-Route::get('/courses/{id}', [CourseController::class, 'show']);
+Route::post('/auth', [AuthController::class, 'generateToken']);
+Route::get('/auth/me', [AuthController::class, 'me'])->middleware('auth:sanctum');
+Route::get('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
+Route::get('/forgot-password', [AuthController::class, 'forgot'])->middleware('guest');
+Route::get('/reset-password', [AuthController::class, 'resetPassword'])->middleware('guest');
 
-Route::get('/courses/{id}/modules', [ModuleController::class, 'index']);
+Route::middleware(['auth:sanctum'])->group(function () {
+    Route::get('/courses', [CourseController::class, 'index']);
+    Route::get('/courses/{id}', [CourseController::class, 'show']);
 
-Route::get('/modules/{id}/lessons', [LessonController::class, 'index']);
-Route::get('/lessons/{id}', [LessonController::class, 'show']);
+    Route::get('/courses/{id}/modules', [ModuleController::class, 'index']);
 
-Route::get('/supports', [SupportController::class, 'index']);
-Route::get('/supports/my', [SupportController::class, 'show']);
-Route::post('/supports', [SupportController::class, 'store']);
+    Route::get('/modules/{id}/lessons', [LessonController::class, 'index']);
+    Route::get('/lessons/{id}', [LessonController::class, 'show']);
 
-Route::post('/reply', [ReplySupportController::class, 'store']);
+    Route::get('/supports', [SupportController::class, 'index']);
+    Route::get('/supports/my', [SupportController::class, 'show']);
+    Route::post('/supports', [SupportController::class, 'store']);
+
+    Route::post('/reply', [ReplySupportController::class, 'store']);
+});
+
 
 
 
