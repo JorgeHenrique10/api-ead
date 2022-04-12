@@ -42,12 +42,13 @@ class ResetPasswordNotification extends Notification
     public function toMail($notifiable)
     {
         $url = config('app.url_frontend') . '/reset/' . $this->token;
+
         return (new MailMessage)
             ->subject('Resetar Senha EAD')
             ->line('Para resetar a senha favor clicar no botão Abaixo:')
             ->action('Resetar a senha', $url)
             ->line('Caso não tenha solicitado a substituição de senha, favor desconsiderar o email.')
-            ->line($this->token);
+            ->line('token: ' .  $this->token);
     }
 
     /**

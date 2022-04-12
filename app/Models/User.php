@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\Api\Lesson;
 use App\Models\Api\ReplySupport;
 use App\Models\Api\Support;
+use App\Models\Api\View;
 use App\Models\Traits\UuidTrait;
 use App\Notifications\ResetPasswordNotification;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -62,5 +63,9 @@ class User extends Authenticatable
     public function replies()
     {
         return $this->hasMany(ReplySupport::class);
+    }
+    public function views()
+    {
+        return $this->hasMany(View::class);
     }
 }
