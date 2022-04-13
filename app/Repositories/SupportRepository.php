@@ -32,7 +32,7 @@ class SupportRepository
                     $query->where('status', $filters['status']);
                 }
                 if (isset($filters['description'])) {
-                    $query->where('description', $filters['description']);
+                    $query->where('description', 'like', '%' . $filters['description'] . '%');
                 }
                 if (isset($filters['user'])) {
                     $user = $this->getUserAuth();

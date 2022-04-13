@@ -20,7 +20,7 @@ class CourseTest extends TestCase
 
     public function test_get_all_courses()
     {
-        $response = $this->getJson('/courses', $this->getHeader());
+        $response = $this->getJson('/courses', $this->getHeader($this->getUser()));
 
         $response->assertStatus(200);
     }
@@ -29,7 +29,7 @@ class CourseTest extends TestCase
     {
         $courses = Course::factory()->count(10)->create();
 
-        $response = $this->getJson('/courses', $this->getHeader());
+        $response = $this->getJson('/courses', $this->getHeader($this->getUser()));
 
         $response->assertStatus(200)->assertJsonCount(10, 'data');
     }
@@ -45,7 +45,7 @@ class CourseTest extends TestCase
     {
         $courses = Course::factory()->create();
 
-        $response = $this->getJson("/courses/{$courses->id}", $this->getHeader());
+        $response = $this->getJson("/courses/{$courses->id}", $this->getHeader($this->getUser()));
 
         $response->assertStatus(200);
     }

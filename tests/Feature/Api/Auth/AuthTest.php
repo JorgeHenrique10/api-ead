@@ -40,7 +40,7 @@ class AuthTest extends TestCase
 
     public function test_logout()
     {
-        $header = $this->getHeader();
+        $header = $this->getHeader($this->getUser());
 
         $response = $this->postJson('/logout', [], $header);
 

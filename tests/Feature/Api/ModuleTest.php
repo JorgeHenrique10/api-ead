@@ -24,7 +24,7 @@ class ModuleTest extends TestCase
         $course = Course::factory()->create();
         Module::factory()->count(10)->create(['course_id' => $course->id]);
 
-        $response = $this->getJson("/courses/{$course->id}/modules", $this->getHeader());
+        $response = $this->getJson("/courses/{$course->id}/modules", $this->getHeader($this->getUser()));
 
         $response->assertStatus(200)
             ->assertJsonCount(10, 'data');

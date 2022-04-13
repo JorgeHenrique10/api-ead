@@ -12,9 +12,8 @@ trait UtilsTrait
         return $user;
     }
 
-    public function getHeader()
+    public function getHeader(User $user)
     {
-        $user = $this->getUser();
         $token = $user->createToken('api')->plainTextToken;
 
         return [
