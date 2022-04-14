@@ -18,6 +18,7 @@ class LessonRepository
     public function getAllLessionByModuleId($moduleId)
     {
         return $this->entity
+            ->with('supports.replies')
             ->where('module_id', $moduleId)
             ->get();
     }

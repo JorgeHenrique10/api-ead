@@ -3,6 +3,7 @@
 namespace App\Http\Resources\Api;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Carbon;
 
 class SupportResource extends JsonResource
 {
@@ -20,8 +21,9 @@ class SupportResource extends JsonResource
             'status' => $this->status,
             'status_label' => $this->statusOptions[$this->status] ?? '',
             'user' => new UserResource($this->user),
-            'lesson' => new LessonResource($this->lesson),
-            'replies' => ReplySupportResource::collection($this->replies)
+            'lesson' => new LessonResource($this->whenLoaded('lessons')),
+            'replies' => ReplySupportResource::collection($this->whenLoaded('replies')),
+            'dt_updated' => Carbon::make($this->updated_at)->format('Y-m-d H:i:s'),
         ];
     }
 }

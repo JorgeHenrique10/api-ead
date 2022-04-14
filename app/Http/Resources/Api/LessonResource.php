@@ -3,6 +3,7 @@
 namespace App\Http\Resources\Api;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Storage;
 
 class LessonResource extends JsonResource
 {
@@ -14,6 +15,13 @@ class LessonResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'url' => $this->url ? Storage::url($this->url) : '',
+            'video' => $this->video,
+            'description' => $this->description,
+            'views' => ViewResouce::collection($this->whenLoaded('views'))
+        ];
     }
 }

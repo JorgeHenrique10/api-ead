@@ -108,7 +108,7 @@ class SupportTest extends TestCase
 
         Support::factory()->count(10)->create(['user_id' => $user->id]);
         $response = $this->postJson('/supports', $payload, $this->getHeader($user));
-        $response->dump();
+        // $response->dump();
         $response->assertStatus(201);
     }
 }
